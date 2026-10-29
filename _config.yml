@@ -1,0 +1,17 @@
+title: Teddy Hardy · DH 101
+description: Critical making in Digital Humanities at Denison University.
+author: Teddy Hardy
+theme: minima
+header_pages: []
+exclude:
+  - README.md
+  - LICENSE
+  - ai-log/
+  - reflections/
+  - pages/
+  - makes/week01.md
+  - makes/week09.md
+  - makes/week10.md
+  - makes/week11.md
+  - makes/week12.md
+  - makes/week13.md
