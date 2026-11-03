@@ -30,8 +30,8 @@ title: Home
     <img src="{{ site.baseurl }}/assets/images/week07/image1.png" alt="Mapping AI's Infrastructures">
     <div class="body"><div class="num">Make 6</div><h3>Mapping AI's Infrastructures</h3><p>Data centers, mines and labor sites: the physical world behind the “cloud.”</p></div>
   </a></li>
-  <li class="make-card"><a href="{{ site.baseurl }}/makes/week08.html">
-    <img src="{{ site.baseurl }}/assets/images/week08/image5.jpeg" alt="Networks of Knowledge and Power">
-    <div class="body"><div class="num">Make 7</div><h3>Networks of Knowledge and Power</h3><p>Pushing an image generator with a photo of Denison's campus.</p></div>
+  <li class="make-card"><a href="{{ site.baseurl }}/makes/week09.html">
+    <img src="{{ site.baseurl }}/assets/images/week09/image8.jpeg" alt="Denison in the Year 4005">
+    <div class="body"><div class="num">Make 8</div><h3>Denison in the Year 4005</h3><p>Curating 20 AI images of campus, from oil painting to a floating whale.</p></div>
   </a></li>
 </ul>
