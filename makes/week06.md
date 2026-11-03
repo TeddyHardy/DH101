@@ -27,8 +27,8 @@ title: "Make 5: Voyant vs. ChatGPT"
 
 **Visualizations:**
 
-![Voyant Tools visualization of The Tell-Tale Heart]({{ site.baseurl }}/assets/images/week06/image1.png)
-![Voyant Tools visualization of The Tell-Tale Heart]({{ site.baseurl }}/assets/images/week06/image2.png)
+![Voyant Tools word cloud of "The Tell-Tale Heart," where the largest words are old, louder, night, heard, eye, man, and sound]({{ site.baseurl }}/assets/images/week06/image1.png)
+![Voyant Tools trends line graph of old, night, louder, heard, and eye across ten sections of the story, with "louder" spiking sharply in the final section]({{ site.baseurl }}/assets/images/week06/image2.png)
 
 ## ChatGPT
 

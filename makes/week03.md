@@ -9,11 +9,11 @@ title: "Make 2: AI Selfie"
 
 **Original photo · First AI version**
 
-![My original classroom selfie]({{ site.baseurl }}/assets/images/week03/image1.jpeg) ![Generated image: Modern Formal Portrait in Glass-Walled Interior]({{ site.baseurl }}/assets/images/week03/image2.jpeg)
+![My original selfie: me in a green T-shirt, photographed from below in a white classroom hallway]({{ site.baseurl }}/assets/images/week03/image1.jpeg) ![AI-generated portrait of me in a black suit and tie, standing in a modern glass-walled office]({{ site.baseurl }}/assets/images/week03/image2.jpeg)
 
 **Final AI version**
 
-![Generated image: Game Day Champion Arrival]({{ site.baseurl }}/assets/images/week03/image3.jpeg)
+![AI-generated image of me in a black suit and headphones carrying a briefcase through a stadium tunnel, with photographers and a sign reading "Play Like a Champion"]({{ site.baseurl }}/assets/images/week03/image3.jpeg)
 
 ## Reflection 1
 

@@ -5,7 +5,7 @@ title: "Make 3: T-Rex Teddy Saves New York"
 
 <p class="make-meta">Comic & Storytelling</p>
 
-![My AI-generated comic: T-Rex Teddy saves New York City]({{ site.baseurl }}/assets/images/week04/image1.png)
+![Six-panel AI-generated comic: a T-Rex superhero in a red cape with a T on his chest fights a giant robot attacking New York City, rescues a woman, and watches over the city at sunset. Captions read: "New York City... under attack," "T-Rex Teddy is here," "Bigger. Stronger. Braver.," "He doesn't just fight monsters... he saves people," "A hero for a safer tomorrow," and "New York City isn't just a city... it's home."]({{ site.baseurl }}/assets/images/week04/image1.png)
 
 ## Commentary 
 
