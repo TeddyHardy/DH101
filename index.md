@@ -30,10 +30,6 @@ title: Home
     <img src="{{ site.baseurl }}/assets/images/week07/image1.png" alt="Map of AI data centers, mines and labor sites around the world">
     <div class="body"><div class="num">Make 6</div><h3>Mapping AI's Infrastructures</h3><p>Data centers, mines and labor sites: the physical world behind the “cloud.”</p></div>
   </a></li>
-  <li class="make-card"><a href="{{ site.baseurl }}/makes/week08.html">
-    <img src="{{ site.baseurl }}/assets/images/week08/network.png" alt="Network graph of the AI supply chain from mines to data centers">
-    <div class="body"><div class="num">Make 7</div><h3>AI Supply Chain Network</h3><p>Who is visible and who is invisible on the path from cobalt mines to data centers.</p></div>
-  </a></li>
   <li class="make-card"><a href="{{ site.baseurl }}/makes/week09.html">
     <img src="{{ site.baseurl }}/assets/images/week09/image8.jpeg" alt="AI image of a futuristic Denison campus with a giant whale in the sky">
     <div class="body"><div class="num">Make 8</div><h3>Denison in the Year 4005</h3><p>Curating 20 AI images of campus, from oil painting to a floating whale.</p></div>
