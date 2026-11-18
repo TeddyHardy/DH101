@@ -200,7 +200,7 @@ let filter="all", unit="gal", active="td";
 
 // Map
 const map = L.map("map",{scrollWheelZoom:false,worldCopyJump:true}).setView([20,-50],2);
-L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",{attribution:"© OpenStreetMap © CARTO",maxZoom:10}).addTo(map);
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",{attribution:"Tiles © Esri — Esri, HERE, Garmin, © OpenStreetMap contributors",maxZoom:10}).addTo(map);
 const maxG = Math.max(...SITES.map(s=>s.gpd));
 const markers = {};
 SITES.forEach(s=>{
