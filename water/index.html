@@ -63,6 +63,17 @@
   .calc label{font-size:.95rem}
   .calc input[type=range]{width:100%;margin:14px 0}
   .calc .out{font-family:Fraunces,Georgia,serif;font-size:1.9rem;line-height:1.2}
+  .burj-row{display:flex;gap:28px;align-items:flex-end;margin-top:14px;flex-wrap:wrap}
+  .burj{height:420px;width:auto;flex:0 0 auto}
+  .burj-info{flex:1 1 240px;min-width:0}
+  .burj-info .date{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+  .burj-info .filled{font-size:1.05rem;margin-top:10px}
+  .stack{display:flex;gap:6px;margin-top:10px;min-height:40px;align-items:flex-end}
+  .stack svg{height:40px;width:auto}
+  .slider-row{display:flex;gap:14px;align-items:center;margin-top:16px}
+  .slider-row input{flex:1;margin:0}
+  .play{background:#fff;color:var(--accent);border:0;border-radius:999px;padding:8px 16px;font:600 .9rem Inter,sans-serif;cursor:pointer;white-space:nowrap}
+  @media (max-width:560px){.burj{height:300px}.slider-row{flex-direction:column;align-items:stretch}}
   .calc .small{opacity:.85;font-size:.88rem;margin-top:8px}
   .sources li{margin-bottom:6px;font-size:.88rem;color:var(--ink-2)}
   .sources a{color:var(--accent)}
@@ -124,12 +135,28 @@
     <table id="table"><thead><tr><th>Site</th><th>Company</th><th>Status</th><th>Water</th><th>≈ Gallons/day</th><th>Source</th></tr></thead><tbody></tbody></table>
   </details>
 
-  <h2>Your share</h2>
+  <h2>A year of water, in Burj Khalifas</h2>
   <div class="calc">
-    <label for="days">Drag to see how Google's data center water use adds up, compared with one family's home water use.</label>
-    <input type="range" id="days" min="1" max="10000" value="1">
-    <div class="out" id="calcOut"></div>
-    <div class="small">Drag the slider: at about 16.7 million gallons a day, Google's data centers use as much water as roughly 55,700 American families, every single day.</div>
+    <label for="days">Drag through one year to watch Google's Council Bluffs, Iowa campus, the biggest water user on this map, fill the world's tallest building with water.</label>
+    <div class="burj-row">
+      <svg class="burj" viewBox="0 0 200 600" role="img" aria-labelledby="burjTitle">
+        <title id="burjTitle">Silhouette of the Burj Khalifa filling with water</title>
+        <defs><clipPath id="burjClip"><path id="burjPath"/></clipPath></defs>
+        <path id="burjShape" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.75)" stroke-width="1.5"/>
+        <g clip-path="url(#burjClip)"><rect id="burjWater" x="0" width="200" y="600" height="0" fill="#5fb3e8"/></g>
+      </svg>
+      <div class="burj-info">
+        <div class="date" id="burjDate"></div>
+        <div class="out" id="burjOut"></div>
+        <div class="filled" id="burjFilled" aria-live="polite"></div>
+        <div class="stack" id="burjStack" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="slider-row">
+      <button type="button" id="burjPlay" class="play">▶ Play the year</button>
+      <input type="range" id="days" min="0" max="365" value="0" aria-label="Day of the year">
+    </div>
+    <div class="small">Council Bluffs used about 1.3 billion gallons in a year, roughly 3.6 million gallons a day. We estimate the Burj Khalifa's inside holds about 290 million gallons (its ~309,000 m² of floor space × ~3.6 m per floor ≈ 1.1 million m³). That means one data center campus fills it about 4½ times a year.</div>
   </div>
 
   <h2>Why it matters</h2>
@@ -269,14 +296,42 @@ document.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{
 document.querySelector("#table tbody").innerHTML = SITES.map(s=>`<tr><td>${s.name}</td><td>${s.co}</td><td>${s.status}${s.drought?", drought region":""}</td><td>${s.water}</td><td>${fmt(s.gpd)}</td><td><a href="${SOURCES[s.src][1]}" target="_blank" rel="noopener">link</a></td></tr>`).join("");
 document.getElementById("sources").innerHTML = SOURCES.map(([t,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${t}</a></li>`).join("");
 
-// Calculator
-const GOOGLE_GPD = 6.1e9/365, FAMILY = 300;
-const days=document.getElementById("days"), out=document.getElementById("calcOut");
-function calc(){
-  const d=+days.value; const gal=GOOGLE_GPD*d; const yrs=gal/FAMILY/365;
-  out.textContent = `${d.toLocaleString()} day${d>1?"s":""} of Google's data centers = ${fmt(gal)} gallons ≈ ${yrs>=1?Math.round(yrs).toLocaleString():yrs.toFixed(1)} years of one family's water`;
+// Burj Khalifa fill slider
+const SITE_GPY = 1.3e9;               // Council Bluffs gallons per year
+const BURJ_GAL = 290e6;               // estimated interior volume in gallons
+// Stepped silhouette: [y top, y bottom, half-width], from base to spire
+const SEG = [[480,600,58],[385,480,47],[300,385,38],[225,300,29],[165,225,21],[118,165,14],[85,118,8],[10,85,2.5]];
+const pts=[];
+SEG.forEach(([t,b,h])=>{pts.push([100+h,b],[100+h,t]);});
+const left=SEG.slice().reverse().flatMap(([t,b,h])=>[[100-h,t],[100-h,b]]);
+const d="M"+[...pts,[100,4],...left].map(p=>p.join(",")).join(" L")+" Z";
+document.getElementById("burjPath").setAttribute("d",d);
+document.getElementById("burjShape").setAttribute("d",d);
+// area by segment so the water rises by volume, not just height
+const areas=SEG.map(([t,b,h])=>(b-t)*2*h), TOTAL=areas.reduce((a,b)=>a+b,0);
+function levelFor(frac){let need=frac*TOTAL;for(let i=0;i<SEG.length;i++){const [t,b]=SEG[i];if(need<=areas[i])return b-(b-t)*need/areas[i];need-=areas[i];}return 4;}
+const mini=`<svg viewBox="0 0 200 600"><path d="${d}" fill="#5fb3e8"/></svg>`;
+const days=document.getElementById("days"), water=document.getElementById("burjWater");
+const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function dateFor(n){if(n===0)return "January 1";const dt=new Date(2023,0,1+n-1);return n===365?"December 31":MONTHS[dt.getMonth()]+" "+dt.getDate();}
+function burj(){
+  const n=+days.value, gal=SITE_GPY*n/365, full=Math.floor(gal/BURJ_GAL), frac=(gal/BURJ_GAL)-full;
+  const y=levelFor(frac); water.setAttribute("y",y); water.setAttribute("height",600-y);
+  document.getElementById("burjDate").textContent=`Day ${n} of 365 · ${dateFor(n)}`;
+  document.getElementById("burjOut").textContent= gal>=1e9 ? `${(gal/1e9).toFixed(2)} billion gallons` : `${fmt(gal)} gallons`;
+  document.getElementById("burjFilled").textContent= full===0
+    ? `The tower is ${Math.round(frac*100)}% full.`
+    : `${full} Burj Khalifa${full>1?"s":""} filled, and the next one is ${Math.round(frac*100)}% full.`;
+  document.getElementById("burjStack").innerHTML=mini.repeat(full);
 }
-days.oninput=calc; calc();
+days.oninput=burj; burj();
+let timer=null; const playBtn=document.getElementById("burjPlay");
+playBtn.onclick=()=>{
+  if(timer){clearInterval(timer);timer=null;playBtn.textContent="▶ Play the year";return;}
+  if(+days.value>=365)days.value=0;
+  playBtn.textContent="❚❚ Pause";
+  timer=setInterval(()=>{days.value=Math.min(365,+days.value+2);burj();if(+days.value>=365){clearInterval(timer);timer=null;playBtn.textContent="↺ Replay";}},40);
+};
 select("td");
 </script>
 </body>
